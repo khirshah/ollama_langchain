@@ -14,18 +14,19 @@ Each numbered folder in the src folder constains a standalone small experiment
 
 1. To create and run python virtual environment run these in the main project folder:
 
-  python3 -m venv <your_env>
-  source <your_env>/bin/activate
+    python3 -m venv <your_env>
+  
+    source <your_env>/bin/activate
 
 2. Install dependencies for project
 
-  pip3 install -r requirements.txt
+    pip3 install -r requirements.txt
 
 3. Install kernel for running the Jupyter notebook
 
-  ipython kernel install --user --name=<your_env>
+    ipython kernel install --user --name=<your_env>
 
-  (you'll most likely need to restart in order for this new kernel to be selectable in step 4)
+    (you'll most likely need to restart in order for this new kernel to be selectable in step 4)
 
 4. Navigate to one of the named folders.
   Open the .ipynb file and select the kernel from the dropdown at the top of the notebook
