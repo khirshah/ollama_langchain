@@ -27,10 +27,10 @@ Each numbered folder in the `src` folder constains a standalone small experiment
 
     (you'll most likely need to restart your IDE in order for this new kernel to be selectable in step 4)
 
-4. Navigate to one of the named folders.
+4. Navigate to one of the numbered folders.
   Open the .ipynb file and select the kernel from the dropdown at the top of the notebook
 
-5. Create data folder in main project folder and add the desired pdf file
+5. Create a `/data` folder in the main project folder and add the desired pdf file
 
 6. Update the name of the pdf file in the Jupyter notebook. Look for this line or similar:
   
