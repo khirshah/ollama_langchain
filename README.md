@@ -14,17 +14,17 @@ Each numbered folder in the src folder constains a standalone small experiment
 
 1. To create and run python virtual environment run these in the main project folder:
 
-    python3 -m venv <your_env>
+    `python3 -m venv <your_env>`
   
-    source <your_env>/bin/activate
+    `source <your_env>/bin/activate`
 
 2. Install dependencies for project
 
-    pip3 install -r requirements.txt
+    `pip3 install -r requirements.txt`
 
 3. Install kernel for running the Jupyter notebook
 
-    ipython kernel install --user --name=<your_env>
+    `ipython kernel install --user --name=<your_env>`
 
     (you'll most likely need to restart in order for this new kernel to be selectable in step 4)
 
@@ -35,7 +35,7 @@ Each numbered folder in the src folder constains a standalone small experiment
 
 6. Update the name of the pdf file in the Jupyter notebook. Look for this line or similar:
   
-  docs = load_pdf_data(file_path=<your_file_name>)
+  `docs = load_pdf_data(file_path=<your_file_name>)`
 
 ## Run
 
