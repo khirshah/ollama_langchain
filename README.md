@@ -7,7 +7,7 @@ Each numbered folder in the `src` folder constains a standalone small experiment
 ## Requirements
 
 - python 3
-- you'll need an editor that can run Jupyter notebooks for example VSCode: https://code.visualstudio.com/
+- an editor that can run Jupyter notebooks for example VSCode: https://code.visualstudio.com/
 
 ## Install
 
@@ -25,7 +25,7 @@ Each numbered folder in the `src` folder constains a standalone small experiment
 
     `ipython kernel install --user --name=<your_env>`
 
-    (you'll most likely need to restart in order for this new kernel to be selectable in step 4)
+    (you'll most likely need to restart your IDE in order for this new kernel to be selectable in step 4)
 
 4. Navigate to one of the named folders.
   Open the .ipynb file and select the kernel from the dropdown at the top of the notebook
