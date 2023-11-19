@@ -1,9 +1,8 @@
 # ollama_langchain
 Experimental code snippets - Ollama &amp; Langchain
-
 Exploring llm training using local models
 
-Each numbered folder in the src folder constains a standalone small experiment
+Each numbered folder in the `src` folder constains a standalone small experiment
 
 ## Requirements
 
@@ -35,11 +34,11 @@ Each numbered folder in the src folder constains a standalone small experiment
 
 6. Update the name of the pdf file in the Jupyter notebook. Look for this line or similar:
   
-  `docs = load_pdf_data(file_path=<your_file_name>)`
+    `docs = load_pdf_data(file_path=<your_file_name>)`
 
 ## Run
 
-You can interact with the models via the Jupyter notebooks in the numbered folders in src
+You can interact with the models via the Jupyter notebooks in the numbered folders in `src`
 Keep adding more cells for new questions
 
 ## Tear down
