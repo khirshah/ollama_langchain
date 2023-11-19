@@ -43,4 +43,4 @@ Keep adding more cells for new questions
 
 ## Tear down
 
-To shut down the virtual environment simply run deactivate in the project root
+To shut down the virtual environment simply run `deactivate` in the project root
