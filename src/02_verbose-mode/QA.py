@@ -30,3 +30,4 @@ def get_response(query, chain):
     wrapped_text = textwrap.fill(response['result'], width=100)
     print('\nResult:\n')
     print(wrapped_text)
+    
