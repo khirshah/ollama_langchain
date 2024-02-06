@@ -5,3 +5,11 @@ faiss-cpu
 sentence-transformers
 ipykernel
 ipywidgets
+arize-phoenix
+arize-phoenix[experimental]
+numpy
+langchain
+python-dev-tools
+langchain-community
+langchain-openai
+tiktoken
