@@ -1,6 +1,7 @@
 
-from langchain.document_loaders import PyMuPDFLoader
+from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+import json
 
 # This will load the PDF file
 def load_pdf_data(file_path):
@@ -28,3 +29,12 @@ def split_docs(documents, chunk_size=1000, chunk_overlap=20):
     
     # returning the document chunks
     return chunks
+
+def load_json_data(file_path):
+    with open(file_path) as data:
+      file_contents = data.read()
+    data.close()
+
+    parsed_data = json.loads(file_contents)
+    return parsed_data
+
