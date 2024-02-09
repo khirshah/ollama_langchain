@@ -2,14 +2,41 @@ import phoenix as px
 from phoenix.trace.langchain import OpenInferenceTracer, LangChainInstrumentor
 import pandas as pd
 import numpy as np
-from langchain.llms import Ollama
+from langchain_community.llms import Ollama
 from langchain.prompts import PromptTemplate
 from data_handling import *
 from embedding import *
 from prompt_template import *
 from QA  import * 
-import json
 
+## SETUP
+# Parameter setup
+chain_type = "stuff"
+chat_model_name='orca-mini'
+
+# Read data from files 
+questions = load_json_data('questions.json')
+model_answers = load_json_data('model_answers.json')
+
+## FINE TUNING SETUP
+# Loading the Embedding Model
+embed = load_embedding_model(model_path="all-MiniLM-L6-v2")
+
+# Loading and splitting the PDF documents
+docs = load_pdf_data(file_path="./../../data/hp1.pdf")
+documents = split_docs(documents=docs)
+
+# Creating vectorstore
+vectorstore = create_embeddings(documents, embed)
+
+# Converting vectorstore to a retriever
+retriever = vectorstore.as_retriever()
+
+# Creating the prompt from the template
+prompt=PromptTemplate.from_template(template)
+
+
+## LAUNCH
 # Launch phoenix
 session = px.launch_app()
 
@@ -17,67 +44,26 @@ session = px.launch_app()
 tracer = OpenInferenceTracer()
 LangChainInstrumentor(tracer).instrument()
 
-with open('questions.json') as questions:
-  questions_file_contents = questions.read()
-questions.close()
-
-parsed_questions = json.loads(questions_file_contents)
-
-with open('model_answers.json') as answers:
-  answers_file_contents = answers.read()
-answers.close()
-
-parsed_answers = json.loads(answers_file_contents)
-
-chain_type = "stuff"
-chat_model_name='orca-mini'
 
 # Loading model from Ollama
-llm = Ollama(model='orca-mini', temperature=0)
-
-# Loading the Embedding Model
-embed = load_embedding_model(model_path="all-MiniLM-L6-v2")
-
-# loading and splitting the documents
-docs = load_pdf_data(file_path="./../../data/hp1.pdf")
-documents = split_docs(documents=docs)
-
-# creating vectorstore
-vectorstore = create_embeddings(documents, embed)
-
-# converting vectorstore to a retriever
-retriever = vectorstore.as_retriever()
-
-# Creating the prompt from the template which we created before
-prompt=PromptTemplate.from_template(template)
-# prompt = PromptTemplate(
-#    template=template,
-#    input_variables = ["first_text", "second_text", "query"]
-#   )
+llm = Ollama(model=chat_model_name, temperature=0)
 
 # Creating the chain
 chain = load_qa_chain(retriever, llm, prompt)
 
 
-# results = []
+# Calling the chain
+for item in model_answers[chat_model_name]:
+    model_answer = item['answer']
+    correct_answer = [x['answer'] for x in questions if x['id'] == item['id']]
+    print('\n')
+    print('Question:\n',item['question'])
+    print('Answer (model):\n', model_answer)
+    print('Answer (correct):\n', correct_answer[0])
+    response = get_response(
+       '''first_text: {model_answer}second_text: {correct_answer[0]}''', 
+       chain,
+       tracer
+      )
 
-for item in parsed_answers[chat_model_name]:
-    first_text = item['answer']
-    second_text = [x['answer'] for x in parsed_questions if x['id'] == item['id']]
-    print(first_text)
-    print(second_text[0])
-    response = get_response('''first_text: {first_text}second_text: {second_text[0]}''', chain, tracer)
-    # response = get_response({
-    #   'first_text': first_text,
-    #   'second_text': second_text,
-    #   'query': 'Do these 2 texts have the same meaning?'
-    #   }, chain)
-    print(response)
-    # results.append({
-    #   'id': item['id'],
-    #   'result': result
-    # })
-
-# with open('output.json', 'w+', encoding='utf-8') as f:
-#   json.dump(results, f, ensure_ascii=False, indent=2)
-# f.close()
+    print('Evaulation:\n', response)
